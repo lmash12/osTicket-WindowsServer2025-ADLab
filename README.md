@@ -66,7 +66,8 @@ A complete production-grade implementation of an enterprise IT Service Desk runn
 │   ├── osTicket Database Backup.xml   # Task Scheduler XML export for nightly backups
 │   ├── php-extensions-config.ini      # Optimized PHP extension configurations
 │   └── web.config                     # IIS web server configuration file
-└── README.md```                          # Project documentation
+└── README.md                          # Project documentation
+```
 
 #Technical Troubleshooting Log
 During deployment on Windows Server 2025 and IIS 10, several enterprise environmental issues were identified and resolved:
