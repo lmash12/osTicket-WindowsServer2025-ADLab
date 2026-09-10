@@ -1,0 +1,28 @@
+# Configuration
+$apiKey = ""
+$osticketUrl = "http://127.0.0.1/osticket/api/http.php/tickets.json"
+
+# Fetch AD User Details
+$adUser = Get-ADUser -Identity "jgold" -Properties DisplayName, Mail
+
+# Construct Payload with mandatory 'ip' attribute
+$payload = @{
+    name        = $adUser.DisplayName
+    email       = $adUser.Mail
+    subject     = "Automated Onboarding Ticket for $($adUser.DisplayName)"
+    message     = "data:text/html,System-generated request: Configure workstation and permissions for AD account $($adUser.SamAccountName)."
+    ip          = "127.0.0.1"
+    source      = "API"
+    autorespond = $false
+    alert       = $true
+} 
+
+$body = $payload | ConvertTo-Json
+
+try {
+    $response = Invoke-RestMethod -Uri $osticketUrl -Method Post -Headers @{ "X-API-Key" = $apiKey } -Body $body -ContentType "application/json"
+    Write-Host "Ticket Created Successfully! Ticket ID: $response" -ForegroundColor Green
+} catch {
+    Write-Host "API Request Failed: $_" -ForegroundColor Red
+    $_.Exception.Response
+}
