@@ -67,3 +67,14 @@ A complete production-grade implementation of an enterprise IT Service Desk runn
 │   ├── php-extensions-config.ini      # Optimized PHP extension configurations
 │   └── web.config                     # IIS web server configuration file
 └── README.md                          # Project documentation
+#Technical Troubleshooting Log
+During deployment on Windows Server 2025 and IIS 10, several enterprise environmental issues were identified and resolved:
+### 1.PHP CLI Execution in Task Scheduler:
+* Issue: cron.php failed to execute via Task Scheduler due to relative pathing errors.
+* Fix: Configured absolute path calling in Task Scheduler action: C:\tools\php85\php.exe -f "C:\inetpub\wwwroot\osticket\api\cron.php"
+### 2. IIS URL Rewrite & FastCGI Pathing:
+* Issue: HTTP 404 errors on API endpoints and client login redirects.
+* Fix: Imported custom rewrite rules into web.config and enabled cgi.fix_pathinfo=1 in php.ini.
+### 3. MySQL Backup Script Execution:
+* Issue: mysqldump.exe path mismatch during scheduled task execution.
+* Fix: Built dynamic path resolution logic into Backup-osTicket.ps1 to automatically locate binary installations across standard MySQL/MariaDB paths.
