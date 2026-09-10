@@ -69,7 +69,7 @@ A complete production-grade implementation of an enterprise IT Service Desk runn
 └── README.md                          # Project documentation
 ```
 
-#Technical Troubleshooting Log
+###Technical Troubleshooting Log
 During deployment on Windows Server 2025 and IIS 10, several enterprise environmental issues were identified and resolved:
 ### 1.PHP CLI Execution in Task Scheduler:
 * Issue: cron.php failed to execute via Task Scheduler due to relative pathing errors.
